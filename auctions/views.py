@@ -8,6 +8,7 @@ from .models import User
 
 
 def index(request):
+    print(request.user)
     return render(request, "auctions/index.html")
 
 
@@ -61,3 +62,17 @@ def register(request):
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "auctions/register.html")
+
+
+def addlisting(request):
+    if request.method == "POST":
+        print(request.user.username, request.POST["category"])
+        username = request.user.username
+        print(request.POST["title"], request.POST["urlname"], request.POST["price"], request.POST["description"])
+        if request.POST["title"] == "" or request.POST["urlname"] == ""  or request.POST["description"] == "":
+            print("Hi")
+            return render(request, "auctions/addlisting.html", {
+            "message": "Please fill the form completely to add a listing"
+            })
+        print("Hello")
+    return render(request, "auctions/addlisting.html")

@@ -1,0 +1,61 @@
+form{
+  border: 1px solid #fff;
+  border-radius: 10px;
+  padding: 20px 10px;
+  min-width: 520px;
+  background-color: #dedede;
+}
+
+input, label, textarea{
+  font-size: 21px;
+  display: block;
+  width: calc(100% - 30px);
+  margin: 10px;
+  line-height: 2;
+}
+
+input{
+  border: none;
+  border-bottom: 1px solid #fff;
+}
+
+input, textarea{
+  padding: 0 12px;
+  background-color: turquoise;
+  color: #fff;
+  letter-spacing: 0.05em;
+  box-sizing: border-box;
+}
+
+textarea{
+  border: none;
+}
+
+input[type="submit"]{
+  background-color: turquoise;
+  color: white;
+  font-weight: bold;
+  border-radius: 10px;
+  border: none;
+}
+
+#cat1{
+  display: inline;
+}
+
+select{
+  background-color: turquoise;
+  border: none;
+  display: inline-block;
+  padding: 8px 4px;
+  font-size: 14px;
+  letter-spacing: 0.1em;
+}
+
+option{
+  font-size: 14px;
+}
+
+*:focus{
+  outline: none;
+}
