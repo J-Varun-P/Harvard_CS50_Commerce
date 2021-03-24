@@ -84,5 +84,14 @@ def addlisting(request):
     return render(request, "auctions/addlisting.html")
 
 
-def listings(request):
-    return render(request, "auctions/listings.html")
+def listings(request, id):
+    print(request.user.username)
+    listing = Listings.objects.filter(pk=id).first()
+    user = request.user.username
+    userlistings = user.user_listings.all()
+    for u in userlistings:
+        print(u)
+    print(listing.name)
+    return render(request, "auctions/listings.html", {
+    "listing": listing
+    })

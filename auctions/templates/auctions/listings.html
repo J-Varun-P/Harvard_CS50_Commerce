@@ -12,17 +12,19 @@
 <div class="entirelisting">
   <div class="lhalf">
     <div class="item">
-      <h2>Title: Product 1</h2>
-      <img src="https://picsum.photos/300/300" alt="">
+      <h2>{{ listing.title }}</h2>
+      <div class="cat1">
+        <p>Category: <span>{{ listing.category }}</span></p>
+      </div>
+      <img src= {{ listing.imageurl }} alt="">
       <div class="price">
         <h2>$99</h2>
       </div>
       <p class="description">
-        Some description about the product.
-        Recommended by Harry Potter.
+        {{ listing.description }}
       </p>
       <div class="user">
-        <p>Posted by: <span>Hermione Granger</span></p>
+        <p>Posted by: <span>{{ username }}</span></p>
       </div>
       <div class="bid">
         <h3>Current Bidding at:</h3>

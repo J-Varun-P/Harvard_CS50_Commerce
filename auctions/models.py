@@ -8,10 +8,10 @@ class User(AbstractUser):
 class Listings(models.Model):
     title = models.CharField(max_length=64)
     imageurl = models.CharField(max_length=128)
-    price = models.IntegerField()
+    price = models.DecimalField(max_digits=10, decimal_places=2)
     description = models.CharField(max_length=1024)
     category = models.CharField(max_length=32)
-    name = models.ManyToManyField(User, related_name="user_listings")
+    name = models.ManyToManyField(User, blank=True, related_name="user_listings")
     close = models.CharField(max_length=10, default="false")
 
     def __str__(self):
