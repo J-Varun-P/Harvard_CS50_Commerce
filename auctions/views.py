@@ -4,11 +4,13 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
-from .models import User
+from .models import User, Listings
 
 
 def index(request):
     print(request.user)
+    listings = Listings.objects.filter(close="false").all()
+    print(listings)
     return render(request, "auctions/index.html")
 
 
@@ -80,3 +82,7 @@ def addlisting(request):
             "message": "Please provide a real number for the price tag"
             })
     return render(request, "auctions/addlisting.html")
+
+
+def listings(request):
+    return render(request, "auctions/listings.html")

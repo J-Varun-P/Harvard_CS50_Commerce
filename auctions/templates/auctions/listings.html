@@ -1,0 +1,53 @@
+{% extends "auctions/layout.html" %}
+
+{% load static %}
+
+{% block style %}
+  <link href="{% static 'auctions/listings.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+
+
+<div class="entirelisting">
+  <div class="lhalf">
+    <div class="item">
+      <h2>Title: Product 1</h2>
+      <img src="https://picsum.photos/300/300" alt="">
+      <div class="price">
+        <h2>$99</h2>
+      </div>
+      <p class="description">
+        Some description about the product.
+        Recommended by Harry Potter.
+      </p>
+      <div class="user">
+        <p>Posted by: <span>Hermione Granger</span></p>
+      </div>
+      <div class="bid">
+        <h3>Current Bidding at:</h3>
+        <span>No one has bidded yet</span>
+      </div>
+      <div class="do_the_bid">
+        <form class="">
+          {% csrf_token %}
+          <label for="bid"><h3>Bid Amount</h3></label>
+          <input type="text" name="bid" value="" id="bid" placeholder="Enter bidding amount here">
+          <input type="submit" name="" value="Bid (click me)" id="bid_button">
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="rhalf">
+    <div class="commentheader">
+      <span>Post your comments</span>
+    </div>
+    <div class="commentsection">
+
+    </div>
+    <div class="commententry">
+      <input type="text" name="comment" value="" placeholder="Enter your comment here">
+    </div>
+  </div>
+</div>
+{% endblock %}

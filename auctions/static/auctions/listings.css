@@ -1,0 +1,186 @@
+.entirelisting{
+  padding: 0;
+  margin: 0;
+  font-family: sans-serif;
+  letter-spacing: 0.1em;
+  word-spacing: 0.15em;
+  color: #444;
+}
+
+*{
+  box-sizing: border-box;
+}
+
+.lhalf{
+  width: 50%;
+  float: left;
+  /*border: 2px solid crimson;*/
+}
+
+.rhalf{
+  width: 48%;
+  float: right;
+  margin-top: 5px;
+}
+
+.item{
+  margin: 30px 0 0 30px;
+  /*border: 2px solid orange;*/
+}
+
+.price{
+  color: #666;
+  margin: 10px 0;
+}
+
+.description{
+  margin: 15px 0 0 0;
+}
+
+.user{
+  margin-bottom: 15px;
+}
+
+h2,h3{
+  font-family: monospace, sans-serif;
+  margin-bottom: 10px;
+}
+
+p{
+  line-height: 2;
+  padding-left: 10px;
+  border-left: 6px solid #999;
+  border-top: 6px solid #999;
+}
+
+span{
+  text-decoration: underline;
+  line-height: 3;
+}
+
+.user p{
+  border-left: none;
+  border-top: none;
+  border-bottom: 6px solid #999;
+  border-right: 6px solid #999;
+}
+
+img{
+  width: 300px;
+}
+
+@media screen and (max-width: 680px){
+
+  body{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .lhalf, .rhalf{
+    float: none;
+    width: 400px;
+    margin: auto;
+  }
+
+  .item{
+    margin: 0;
+  }
+
+  .bid > *{
+    margin: 10px 0 10px 0;
+  }
+}
+
+.commentheader{
+  padding: 10px;
+}
+
+.commentheader span{
+  text-decoration: none;
+  font-size: 21px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  border-bottom-right-radius: 12px;
+  border-right: 6px solid #999;
+  border-bottom: 6px solid #999;
+}
+
+.bid{
+  display: flex;
+  flex-flow: row wrap;
+  align-items: baseline;
+  padding: 0 0 10px 0;
+  margin: 20px 0 10px 0;
+  /*border: 2px solid hotpink;*/
+}
+
+.bid span{
+  text-decoration: none;
+  line-height: 1;
+  /*border: 2px solid orange;*/
+  margin-left: auto;
+  padding-bottom: 2px;
+  border-bottom: 2px solid #999;
+}
+
+.bid h3{
+  padding-top: 2px;
+  border-top: 2px solid #999;
+}
+
+.do_the_bid{
+  line-height: 1.2;
+  /*border: 2px solid hotpink;*/
+  margin-bottom: 10px;
+}
+
+.do_the_bid h3{
+  /*widths: 60%;*/
+  border-bottom: 2px solid #999;
+  padding-bottom: 2px;
+}
+
+.do_the_bid input{
+  padding: 2px 6px;
+  width: 100%;
+  font-size: 18px;
+  border: none;
+  border-bottom: 2px solid #aaa;
+  font-family: monospace, sans-serif;
+  letter-spacing: 0.1em;
+  word-spacing: 0.15em;
+}
+
+*:focus{
+  outline: none;
+}
+
+#bid_button{
+  display: inline-block;
+  padding: 6px 24px;
+  text-align: center;
+  color: white;
+  letter-spacing: 0.1em;
+  font-weight: bold;
+  border: 1px solid #ccc;
+  margin-top: 10px;
+  background-color: #008cba;
+}
+
+.commentsection{
+  height: 460px;
+}
+
+.commententry{
+  margin-bottom: 10px;
+}
+.commententry input{
+  width: 75%;
+  font-size: 18px;
+  letter-spacing: 0.1em;
+  word-spacing: 0.15em;
+  padding: 2px 6px;
+  font-family: monospace, sans-serif;
+  border: none;
+  border-bottom: 2px solid #aaa;
+}
