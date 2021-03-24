@@ -7,14 +7,18 @@
 {% endblock %}
 
 {% block body %}
+{% if user.is_authenticated %}
     <h2>Active Listings</h2>
     <div class="fc">
       {% for listing in listings %}
-        <div class="listing">
-          <h4>{{ listing.title }}</h4>
-          <img src={{ listing.imageurl }} alt="">
-          <h4>${{ listing.price }}</h4>
-        </div>
+        <a href="{% url 'listings' listing.id %}">
+          <div class="listing">
+            <h4>{{ listing.title }}</h4>
+            <img src={{ listing.imageurl }} alt="">
+            <h4>${{ listing.price }}</h4>
+          </div>
+        </a>
     {% endfor %}
     </div>
+{% endif %}
 {% endblock %}

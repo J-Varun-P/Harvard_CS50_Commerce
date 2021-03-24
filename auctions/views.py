@@ -11,7 +11,7 @@ def index(request):
     print(request.user)
     listings = Listings.objects.filter(close="false").all()
     for l in listings:
-        print(l)
+        print(l, l.name.username, l.id)
     return render(request, "auctions/index.html", {
     "listings": listings
     })
@@ -88,6 +88,7 @@ def addlisting(request):
 
 
 def listings(request, id):
+    """
     print(request.user.username)
     listing = Listings.objects.get(pk=id)
     print(listing)
@@ -97,4 +98,11 @@ def listings(request, id):
     print(obj.email, obj.username)
     return render(request, "auctions/listings.html", {
     "listing": listing, "username": obj.username
+    })
+
+    """
+    listing = Listings.objects.get(pk=id)
+    username = listing.name.username
+    return render(request, "auctions/listings.html", {
+    "listing": listing, "username": username
     })
