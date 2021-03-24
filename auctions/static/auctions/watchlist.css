@@ -45,3 +45,20 @@ a:hover{
 img{
   width: 240px;
 }
+
+.remove{
+  position: absolute;
+  top: 60px;
+  right: 10px;
+}
+
+.remove a{
+  padding: 4px 8px;
+  background-color: #008cba;
+  opacity: 0.75;
+  color: #fff;
+}
+
+.positionme{
+  position: relative;
+}

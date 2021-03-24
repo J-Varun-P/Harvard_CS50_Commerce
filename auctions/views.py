@@ -133,3 +133,8 @@ def watchlist(request):
     return render(request, "auctions/watchlist.html", {
     "listings": listings
     })
+
+def removewatchlist(request, id):
+    listing = Listings.objects.get(pk=id)
+    Watchlist.objects.filter(listing=listing).delete()
+    return HttpResponseRedirect(reverse("watchlist"))

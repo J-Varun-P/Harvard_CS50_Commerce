@@ -10,13 +10,20 @@
     <h2>WatchList</h2>
     <div class="fc">
       {% for listing in listings %}
+      <div class="positionme">
+
         <a href="{% url 'listings' listing.listing.id %}">
+          <div class="remove">
+            <a href="{% url 'removewatchlist' listing.listing.id %}">Remove</a>
+          </div>
           <div class="listing">
             <h4>{{ listing.listing.title }}</h4>
             <img src={{ listing.listing.imageurl }} alt="">
             <h4>${{ listing.listing.price }}</h4>
           </div>
         </a>
+
+      </div>
     {% endfor %}
     </div>
 {% endblock %}
