@@ -86,12 +86,12 @@ def addlisting(request):
 
 def listings(request, id):
     print(request.user.username)
-    listing = Listings.objects.filter(pk=id).first()
-    user = request.user.username
-    userlistings = user.user_listings.all()
-    for u in userlistings:
-        print(u)
-    print(listing.name)
+    listing = Listings.objects.get(pk=id)
+    print(listing)
+    list = Listings.objects.get(pk=id)
+    print(list)
+    obj = list.name.all().first()
+    print(obj.email, obj.username)
     return render(request, "auctions/listings.html", {
-    "listing": listing
+    "listing": listing, "username": obj.username
     })
