@@ -10,8 +10,11 @@ from .models import User, Listings
 def index(request):
     print(request.user)
     listings = Listings.objects.filter(close="false").all()
-    print(listings)
-    return render(request, "auctions/index.html")
+    for l in listings:
+        print(l)
+    return render(request, "auctions/index.html", {
+    "listings": listings
+    })
 
 
 def login_view(request):

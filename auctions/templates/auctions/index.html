@@ -1,7 +1,19 @@
 {% extends "auctions/layout.html" %}
 
+{% load static %}
+
+{% block style %}
+  <link href="{% static 'auctions/activelistings.css' %}" rel="stylesheet">
+{% endblock %}
+
 {% block body %}
     <h2>Active Listings</h2>
 
-    TODO
+    {% for listing in listings %}
+      <div class="listing">
+        <h2>{{ listing.title }}</h2>
+        <img src={{ listing.imageurl }} alt="">
+        <p>{{ listing.price }}</p>
+      </div>
+    {% endfor %}
 {% endblock %}
