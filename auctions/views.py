@@ -138,3 +138,13 @@ def removewatchlist(request, id):
     listing = Listings.objects.get(pk=id)
     Watchlist.objects.filter(listing=listing).delete()
     return HttpResponseRedirect(reverse("watchlist"))
+
+def selectcategory(request):
+    return render(request, "auctions/selectcategory.html")
+
+def categories(request):
+    category = request.POST["category"]
+    listings = Listings.objects.filter(category=category).all()
+    return render(request, "auctions/categories.html", {
+    "listings": listings
+    })

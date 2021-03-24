@@ -1,0 +1,47 @@
+.fc{
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.fc > *{
+  margin: 10px;
+  flex: 1;
+  flex-basis: 300px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #ccc;
+}
+
+h4{
+  line-height: 1.4;
+  color: #3c3c3c;
+}
+
+h2{
+  color: #333;
+}
+
+a{
+  text-decoration: none;
+}
+
+a:hover{
+  text-decoration: none;
+}
+
+.listing{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.listing > *{
+  margin: 5px 0;
+}
+
+img{
+  width: 240px;
+}

@@ -1,0 +1,45 @@
+{% extends "auctions/layout.html" %}
+
+{% load static %}
+
+{% block style %}
+  <link href="{% static 'auctions/selectcategory.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    <h2>Categories</h2>
+    <form action="{% url 'categories' %}" method="post">
+
+      {% csrf_token %}
+      <div class="one">
+      <input type="radio" name="category" id="fashion" value="fashion">
+      <label for="fashion">Fashion</label>
+      </div>
+
+      <div class="one">
+      <input type="radio" name="category" id="toys" value="toys">
+      <label for="toys">Toys</label>
+      </div>
+
+      <div class="one">
+      <input type="radio" name="category" id="electronics" value="electronics">
+      <label for="electronics">Electronics</label>
+      </div>
+
+      <div class="one">
+      <input type="radio" name="category" id="books" value="books">
+      <label for="books">Books</label>
+      </div>
+
+      <div class="one">
+      <input type="radio" name="category" id="home" value="home">
+      <label for="home">Home</label>
+      </div>
+
+      <div class="one">
+      <input type="submit" name="submit" value="Submit">
+      </div>
+
+    </form>
+
+{% endblock %}
