@@ -1,9 +1,13 @@
 form{
-  border: 1px solid #fff;
+  border: 2px solid #f7f7f9;
   border-radius: 10px;
-  padding: 20px 10px;
-  min-width: 520px;
-  background-color: #dedede;
+  padding: 25px;
+  /*min-width: 520px;*/
+  max-width: 680px;
+  margin: auto;
+  /*background-color: #dedede;*/
+  box-sizing: border-box;
+  box-shadow: 0 0 10px rgba(210, 210, 210, 0.5);
 }
 
 input, label, textarea{
@@ -12,31 +16,37 @@ input, label, textarea{
   width: calc(100% - 30px);
   margin: 10px;
   line-height: 2;
+  color: #212529;
 }
 
 input{
-  border: none;
-  border-bottom: 1px solid #fff;
+  /*border: none;
+  border-bottom: 1px solid #fff;*/
 }
 
 input, textarea{
   padding: 0 12px;
-  background-color: turquoise;
-  color: #fff;
+  /*background-color: turquoise;*/
+  /*color: #fff;*/
   letter-spacing: 0.05em;
   box-sizing: border-box;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
 }
 
 textarea{
-  border: none;
+  /*border: none;*/
 }
 
 input[type="submit"]{
-  background-color: turquoise;
-  color: white;
-  font-weight: bold;
-  border-radius: 10px;
-  border: none;
+  /*background-color: turquoise;
+  color: white;*/
+  font-weight: 400;
+  background-color: #007bff;
+  color: #fff;
+  border-color: #007bff;
+  /*border-radius: 10px;
+  border: none;*/
 }
 
 #cat1{
@@ -44,16 +54,18 @@ input[type="submit"]{
 }
 
 select{
-  background-color: turquoise;
-  border: none;
+  /*background-color: turquoise;
+  border: none;*/
   display: inline-block;
   padding: 8px 4px;
-  font-size: 14px;
+  font-size: 16px;
   letter-spacing: 0.1em;
+  border-color: #ced4da;
 }
 
 option{
-  font-size: 14px;
+  font-size: 16px;
+  border-color: #ced4da;
 }
 
 *:focus{

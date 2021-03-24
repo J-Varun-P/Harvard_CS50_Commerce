@@ -69,10 +69,14 @@ def addlisting(request):
         print(request.user.username, request.POST["category"])
         username = request.user.username
         print(request.POST["title"], request.POST["urlname"], request.POST["price"], request.POST["description"])
-        if request.POST["title"] == "" or request.POST["urlname"] == ""  or request.POST["description"] == "":
-            print("Hi")
+        if request.POST["title"] == "" or request.POST["urlname"] == ""  or request.POST["description"] == "" or request.POST["price"] == "":
             return render(request, "auctions/addlisting.html", {
             "message": "Please fill the form completely to add a listing"
             })
-        print("Hello")
+        try:
+            float(request.POST["price"])
+        except ValueError:
+            return render(request, "auctions/addlisting.html", {
+            "message": "Please provide a real number for the price tag"
+            })
     return render(request, "auctions/addlisting.html")
