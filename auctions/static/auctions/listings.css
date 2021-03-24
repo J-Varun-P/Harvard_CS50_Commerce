@@ -5,6 +5,7 @@
   letter-spacing: 0.1em;
   word-spacing: 0.15em;
   color: #444;
+  position: relative;
 }
 
 *{
@@ -204,4 +205,16 @@ img{
   border: 2px solid #f7f7f9;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(210, 210, 210, 0.5);
+}
+
+.watchlsit a{
+  float: right;
+  padding: 10px 20px;
+  color: #fff;
+  background-color: #008cba;
+  position: fixed;
+  right: 0;
+  top: 120px;
+  opacity: 0.75;
+  border-radius: 5px;
 }

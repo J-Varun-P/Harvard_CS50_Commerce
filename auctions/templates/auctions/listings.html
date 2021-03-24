@@ -30,6 +30,7 @@
         <h3>Current Bidding at:</h3>
         <span>No one has bidded yet</span>
       </div>
+      {% if username != request.user.username %}
       <div class="do_the_bid">
         <form class="">
           {% csrf_token %}
@@ -38,9 +39,13 @@
           <input type="submit" name="" value="Bid (click me)" id="bid_button">
         </form>
       </div>
+      {% endif %}
     </div>
   </div>
   <div class="rhalf">
+    <div class="watchlsit">
+      <a href="{% url 'watchlist_id' listing.id %}">Add to my Watchlist</a>
+    </div>
     <div class="commentheader">
       <span>Post your comments</span>
     </div>

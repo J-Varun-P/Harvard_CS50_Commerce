@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
-from .models import User, Listings
+from .models import User, Listings, Watchlist
 
 
 def index(request):
@@ -105,4 +105,18 @@ def listings(request, id):
     username = listing.name.username
     return render(request, "auctions/listings.html", {
     "listing": listing, "username": username
+    })
+
+def watchlist_id(request, id):
+    listing = Listings.objects.get(pk=id)
+    user = User.objects.get(username=request.user.username)
+    w_list = Watchlist(username=user, listing=listing)
+    print(w_list)
+    return HttpResponseRedirect(reverse("watchlist"))
+
+
+def watchlist(request):
+    return HttpResponse("Hello")
+    return render(request, "auctions/watchlist.html", {
+    "listings": listings
     })
