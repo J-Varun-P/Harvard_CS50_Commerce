@@ -43,9 +43,11 @@
     </div>
   </div>
   <div class="rhalf">
-    <div class="watchlsit">
-      <a href="{% url 'watchlist_id' listing.id %}">Add to my Watchlist</a>
-    </div>
+    {% if username != request.user.username %}
+      <div class="watchlsit">
+        <a href="{% url 'watchlist_id' listing.id %}">Add to my Watchlist</a>
+      </div>
+    {% endif %}
     <div class="commentheader">
       <span>Post your comments</span>
     </div>

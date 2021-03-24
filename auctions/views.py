@@ -109,14 +109,27 @@ def listings(request, id):
 
 def watchlist_id(request, id):
     listing = Listings.objects.get(pk=id)
+    print(listing)
     user = User.objects.get(username=request.user.username)
+    c_list = Watchlist.objects.filter(username=request.user)
+    for c in c_list:
+        print(c)
+        if listing == c.listing:
+            print("You have already added this to your watchlist")
+            return HttpResponseRedirect(reverse("watchlist"))
     w_list = Watchlist(username=user, listing=listing)
     print(w_list)
+    w_list.save()
     return HttpResponseRedirect(reverse("watchlist"))
 
 
 def watchlist(request):
+    """
+    print(Watchlist.objects.filter(username=request.user).all())
     return HttpResponse("Hello")
+    print(Watchlist.objects.filter(username=request.user).all())
+    """
+    listings = Watchlist.objects.filter(username=request.user).all()
     return render(request, "auctions/watchlist.html", {
     "listings": listings
     })

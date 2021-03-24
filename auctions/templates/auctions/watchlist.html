@@ -1,0 +1,22 @@
+{% extends "auctions/layout.html" %}
+
+{% load static %}
+
+{% block style %}
+  <link href="{% static 'auctions/watchlist.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    <h2>WatchList</h2>
+    <div class="fc">
+      {% for listing in listings %}
+        <a href="{% url 'listings' listing.listing.id %}">
+          <div class="listing">
+            <h4>{{ listing.listing.title }}</h4>
+            <img src={{ listing.listing.imageurl }} alt="">
+            <h4>${{ listing.listing.price }}</h4>
+          </div>
+        </a>
+    {% endfor %}
+    </div>
+{% endblock %}
