@@ -8,12 +8,13 @@
 
 {% block body %}
     <h2>Active Listings</h2>
-
-    {% for listing in listings %}
-      <div class="listing">
-        <h2>{{ listing.title }}</h2>
-        <img src={{ listing.imageurl }} alt="">
-        <p>{{ listing.price }}</p>
-      </div>
+    <div class="fc">
+      {% for listing in listings %}
+        <div class="listing">
+          <h4>{{ listing.title }}</h4>
+          <img src={{ listing.imageurl }} alt="">
+          <h4>${{ listing.price }}</h4>
+        </div>
     {% endfor %}
+    </div>
 {% endblock %}
