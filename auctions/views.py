@@ -71,9 +71,9 @@ def register(request):
 
 def addlisting(request):
     if request.method == "POST":
-        print(request.user.username, request.POST["category"])
+        #print(request.user.username, request.POST["category"])
         username = request.user.username
-        print(request.POST["title"], request.POST["urlname"], request.POST["price"], request.POST["description"])
+        #print(request.POST["title"], request.POST["urlname"], request.POST["price"], request.POST["description"])
         if request.POST["title"] == "" or request.POST["urlname"] == ""  or request.POST["description"] == "" or request.POST["price"] == "":
             return render(request, "auctions/addlisting.html", {
             "message": "Please fill the form completely to add a listing"
@@ -84,7 +84,12 @@ def addlisting(request):
             return render(request, "auctions/addlisting.html", {
             "message": "Please provide a real number for the price tag"
             })
-        #listing = Listing()
+        username = User.objects.get(pk=request.user.id)
+        listing = Listings(title=request.POST["title"], imageurl=request.POST["urlname"], price=request.POST["price"], description=request.POST["description"], category=request.POST["category"], name=username)
+        listing.save()
+        return HttpResponseRedirect(reverse("index"))
+        #print(listing, listing.name)
+        #return HttpResponse("Hello")
     else:
         return render(request, "auctions/addlisting.html")
 

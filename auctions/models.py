@@ -15,7 +15,7 @@ class Listings(models.Model):
     close = models.CharField(max_length=10, default="false")
 
     def __str__(self):
-        return f"{self.title}"
+        return f"{self.title} by {self.name.username}"
 
 class Watchlist(models.Model):
     username = models.ForeignKey(User, on_delete=models.CASCADE, related_name="watchlistusers")
