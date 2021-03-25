@@ -55,7 +55,11 @@
 
     </div>
     <div class="commententry">
-      <input type="text" name="comment" value="" placeholder="Enter your comment here">
+      <form action="{% url 'addcomment' listing.id %}" method="post">
+        {% csrf_token %}
+        <textarea name="comment" value="" placeholder="Enter your comment here" rows="3"></textarea>
+        <input type="submit" name="" value="Submit" class="commentsubmit">
+      </form>
     </div>
   </div>
 </div>

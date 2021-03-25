@@ -155,3 +155,13 @@ def categories(request):
     return render(request, "auctions/categories.html", {
     "listings": listings
     })
+
+def addcomment(request, id):
+    listing = Listings.objects.get(pk=id)
+    print("Hi")
+    name = User.objects.get(username=request.user.username)
+    content = request.POST["comment"]
+    if content != "":
+        print(f"{name}, {listing}, {content}")
+    print("Hello")
+    return HttpResponse("Hello")

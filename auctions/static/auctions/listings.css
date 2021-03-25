@@ -178,9 +178,10 @@ img{
   color: white;
   letter-spacing: 0.1em;
   font-weight: bold;
-  border: 1px solid #ccc;
+  /*border: 1px solid #ccc;*/
   margin-top: 10px;
   background-color: #008cba;
+  border-radius: 6px;
 }
 
 .commentsection{
@@ -190,7 +191,7 @@ img{
 .commententry{
   margin-top: 10px;
 }
-.commententry input{
+.commententry input, textarea{
   width: 75%;
   font-size: 18px;
   letter-spacing: 0.1em;
@@ -217,4 +218,24 @@ img{
   top: 120px;
   opacity: 0.75;
   border-radius: 5px;
+}
+
+.commententry textarea{
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.commentsubmit{
+  display: inline-block;
+  padding: 6px 24px;
+  text-align: center;
+  color: white;
+  letter-spacing: 0.1em;
+  font-weight: bold;
+  /*border: 1px solid #ccc;*/
+  margin-top: 10px;
+  background-color: #008cba;
+  border-radius: 6px;
 }

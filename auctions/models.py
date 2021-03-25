@@ -23,3 +23,11 @@ class Watchlist(models.Model):
 
     def __str__(self):
         return f"{self.username.username} ({self.listing.title})"
+
+class Comments(models.Model):
+    name = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comment_user")
+    listing = models.ForeignKey(Listings, on_delete=models.CASCADE, related_name="comment_listing")
+    content = models.CharField(max_length=1024)
+
+    def __str__(self):
+        return f"{self.content} by {self.name.username}"
