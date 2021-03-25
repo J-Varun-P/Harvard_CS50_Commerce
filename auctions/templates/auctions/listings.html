@@ -28,7 +28,7 @@
       </div>
       <div class="bid">
         <h3>Current Bidding at:</h3>
-        {% if message1 %}
+        {% if check == "true" %}
         {{bid_success.name.username}} bidded {{bid_success.bid_amount}}
         {% else %}
         <span>No one has bidded yet</span>
