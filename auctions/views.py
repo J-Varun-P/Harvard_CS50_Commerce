@@ -185,6 +185,7 @@ def addmybid(request, id):
     current_bid = Bid.objects.filter(listing=listing).first()
     print(current_bid)
     if current_bid is None:
+        bid.save()
         return HttpResponse("Sorry")
     return HttpResponse("You're here")
     pass
