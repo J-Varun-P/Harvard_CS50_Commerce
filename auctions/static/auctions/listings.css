@@ -154,6 +154,11 @@ img{
   margin-bottom: 10px;
 }
 
+/*.do_the_bid h4{
+  padding: 10px;
+  border-radius: 10px;
+}*/
+
 .do_the_bid form > *{
   margin: 20px 2px;
 }

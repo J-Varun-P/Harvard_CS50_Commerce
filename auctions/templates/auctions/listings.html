@@ -18,7 +18,7 @@
       </div>
       <img src= {{ listing.imageurl }} alt="">
       <div class="price">
-        <h2>{{ listing.price }}</h2>
+        <h2>${{ listing.price }}</h2>
       </div>
       <p class="description">
         {{ listing.description }}
@@ -29,7 +29,7 @@
       <div class="bid">
         <h3>Current Bidding at:</h3>
         {% if check == "true" %}
-        {{bid_success.name.username}} bidded {{bid_success.bid_amount}}
+        <span>{{bid_success.name.username}} bidded {{bid_success.bid_amount}}</span>
         {% else %}
         <span>No one has bidded yet</span>
         {% endif %}
@@ -38,10 +38,10 @@
       <div class="do_the_bid">
         <form action="{% url 'addmybid' listing.id %}" method="post">
           {% if message %}
-          <h4 style="color: red;">{{message}}</h4>
+          <h4 style="background-color: #f8d7da; color: #721c24; padding: 10px; border-radius: 10px">{{message}}</h4>
           {% endif %}
           {% if message1 %}
-          <h4 style="color: #d4edda">{{ message1 }}</h4>
+          <h4 style="background-color: #d4edda; color: #155724; padding :10px; border-radius: 10px;">{{ message1 }}</h4>
           {% endif %}
           {% csrf_token %}
           <label for="bid"><h3>Bid Amount</h3></label>
