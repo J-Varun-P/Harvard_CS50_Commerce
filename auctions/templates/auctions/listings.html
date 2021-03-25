@@ -37,6 +37,7 @@
       </div>
       {% endif %}
       {% if close_bidding == "yes" %}
+      {% if bid_success is not None %}
         <div class="bidding_closed">
           <h3>Auction is closed by {{ listing.name.username }}</h3>
           <p>Auction won by {{ bid_success.name.username }}</p>
@@ -44,6 +45,15 @@
             <p>{{ bid_success.name.username }} bid {{ bid_success.bid_amount }}</p>
           </div>
         </div>
+      {% else %}
+        <div class="bidding_closed">
+          <h3>Auction is closed by {{ listing.name.username }}</h3>
+          <p>Auction won by noone</p>
+          <div class="user">
+            <p>Noone bid on {{ listing.name.username }}'s product</p>
+          </div>
+        </div>
+      {% endif %}
       {% else %}
       {% if username != request.user.username %}
       <div class="do_the_bid">

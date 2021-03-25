@@ -9,11 +9,15 @@ from .models import User, Listings, Watchlist, Comments, Bid, CloseAuction
 
 def index(request):
     print(request.user)
+    notactive = CloseAuction.objects.all()
+    notactivelist = []
+    for object in notactive:
+        notactivelist.append(object.listing)
     listings = Listings.objects.filter(close="false").all()
-    for l in listings:
-        print(l, l.name.username, l.id)
+    #for l in listings:
+    #    print(l, l.name.username, l.id)
     return render(request, "auctions/index.html", {
-    "listings": listings
+    "listings": listings, "notactive": notactivelist
     })
 
 
@@ -233,7 +237,7 @@ def closeauction(request, id):
     listing = Listings.objects.get(pk=id)
     username = listing.name.username
     comments = Comments.objects.filter(listing=listing)
-    bid = Bid.objects.get(listing=listing)
+    bid = Bid.objects.filter(listing=listing).first()
 
     closeauction = CloseAuction(listing=listing)
     closeauction.save()
@@ -244,5 +248,6 @@ def closeauction(request, id):
 def reopenauction(request, id):
     listing = Listings.objects.get(pk=id)
     reopenauction = CloseAuction.objects.get(listing=listing)
+    print(reopenauction)
     reopenauction.delete()
     return HttpResponseRedirect(reverse("listings", args=(listing.id,)))
