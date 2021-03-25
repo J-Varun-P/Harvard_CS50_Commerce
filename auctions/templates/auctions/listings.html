@@ -26,14 +26,25 @@
       <div class="user">
         <p>Posted by: <span>{{ username }}</span></p>
       </div>
+      {% if close_bidding == "no" %}
       <div class="bid">
         <h3>Current Bidding at:</h3>
         {% if check == "true" %}
-        <span>{{bid_success.name.username}} bidded {{bid_success.bid_amount}}</span>
+        <span>{{bid_success.name.username}} bid {{bid_success.bid_amount}}</span>
         {% else %}
         <span>No one has bidded yet</span>
         {% endif %}
       </div>
+      {% endif %}
+      {% if close_bidding == "yes" %}
+        <div class="bidding_closed">
+          <h3>Auction is closed by {{ listing.name.username }}</h3>
+          <p>Auction won by {{ bid_success.name.username }}</p>
+          <div class="user">
+            <p>{{ bid_success.name.username }} bid {{ bid_success.bid_amount }}</p>
+          </div>
+        </div>
+      {% else %}
       {% if username != request.user.username %}
       <div class="do_the_bid">
         <form action="{% url 'addmybid' listing.id %}" method="post">
@@ -50,6 +61,7 @@
         </form>
       </div>
       {% endif %}
+      {% endif %}
     </div>
   </div>
   <div class="rhalf">
@@ -57,6 +69,11 @@
       <div class="watchlsit">
         <a href="{% url 'watchlist_id' listing.id %}">Add to my Watchlist</a>
       </div>
+    {% endif %}
+    {% if username == request.user.username %} <!-- Terrible naming of classes-->
+    <div class="watchlsit">
+      <a href="{% url 'closeauction' listing.id %}">Close Auction</a>
+    </div>
     {% endif %}
     <div class="commentheader">
       <span>Post your comments</span>

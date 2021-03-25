@@ -117,7 +117,7 @@ def listings(request, id):
     else:
         check = "true"
     return render(request, "auctions/listings.html", {
-    "listing": listing, "username": username, "comments": comments, "check": check, "bid_success": bid
+    "listing": listing, "username": username, "comments": comments, "check": check, "bid_success": bid, "close_bidding": "no"
     })
 
 def watchlist_id(request, id):
@@ -191,7 +191,7 @@ def addmybid(request, id):
         float(request.POST["bid"])
     except ValueError:
         return render(request, "auctions/listings.html", {
-        "listing": listing, "username": listing.name.username, "comments": comments, "message": "Please provide a real number for the bid amount", "bid_success": bid, "check": check
+        "listing": listing, "username": listing.name.username, "comments": comments, "message": "Please provide a real number for the bid amount", "bid_success": bid, "check": check, "close_bidding": "no"
         })
     #current_bid = Bid.objects.filter(listing=listing).first()
     #print(current_bid)
@@ -203,16 +203,16 @@ def addmybid(request, id):
             print(bid_amount, listing.price)
             bid1.save()
             return render(request, "auctions/listings.html", {
-            "listing": listing, "username": listing.name.username, "comments": comments, "bid_success": bid1, "message1": "Bid Successfully placed", "check": "true"
+            "listing": listing, "username": listing.name.username, "comments": comments, "bid_success": bid1, "message1": "Bid Successfully placed", "check": "true", "close_bidding": "no"
             })
         else:
             return render(request, "auctions/listings.html", {
-            "listing": listing, "username": listing.name.username, "comments": comments, "message": "Please bid higher than the original price", "bid_success": bid, "check": "false"
+            "listing": listing, "username": listing.name.username, "comments": comments, "message": "Please bid higher than the original price", "bid_success": bid, "check": "false", "close_bidding": no
             })
     else:
         if bid_amount <= bid.bid_amount:
             return render(request, "auctions/listings.html", {
-            "listing": listing, "username": listing.name.username, "comments": comments, "message": "Please bid higher than the current bid", "check": "true", "bid_success": bid
+            "listing": listing, "username": listing.name.username, "comments": comments, "message": "Please bid higher than the current bid", "check": "true", "bid_success": bid, "close_bidding": "no"
             })
         else:
             print(bid.bid_amount, bid_amount)
@@ -220,7 +220,16 @@ def addmybid(request, id):
             bid.name = request.user
             bid.save()
             return render(request, "auctions/listings.html", {
-            "listing": listing, "username": listing.name.username, "comments": comments, "bid_success": bid, "message1": "Bid Successfully placed", "check": "true"
+            "listing": listing, "username": listing.name.username, "comments": comments, "bid_success": bid, "message1": "Bid Successfully placed", "check": "true", "close_bidding": "no"
             })
-    return HttpResponse("You're here")
-    pass
+
+
+def closeauction(request, id):
+    listing = Listings.objects.get(pk=id)
+    username = listing.name.username
+    comments = Comments.objects.filter(listing=listing)
+    bid = Bid.objects.get(listing=listing)
+
+    return render(request, "auctions/listings.html", {
+    "listing": listing, "username": username, "comments": comments, "bid_success": bid, "close_bidding": "yes"
+    })
