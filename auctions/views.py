@@ -170,9 +170,8 @@ def addcomment(request, id):
 def addmybid(request, id):
     listing = Listings.objects.get(pk=id)
     name = User.objects.get(username=request.user.username)
+    comments = Comments.objects.filter(listing=listing)
     bid_amount = request.POST["bid"]
-    bid = Bid(bid_amount=bid_amount, name=name, listing=listing)
-    print(bid)
     if bid_amount == "":
         return HttpResponseRedirect(reverse("listings", args=(listing.id,)))
     try:
@@ -184,8 +183,29 @@ def addmybid(request, id):
         })
     current_bid = Bid.objects.filter(listing=listing).first()
     print(current_bid)
+    bid_amount = float(bid_amount)
+    bid = Bid(bid_amount=bid_amount, name=name, listing=listing)
     if current_bid is None:
-        bid.save()
-        return HttpResponse("Sorry")
+        if bid_amount > listing.price:
+            print(bid_amount, listing.price)
+            bid.save()
+            return render(request, "auctions/listings.html", {
+            "listing": listing, "username": listing.name.username, "comments": comments, "bid_success": bid, "message1": "Bid Successfully placed"
+            })
+        else:
+            return render(request, "auctions/listings.html", {
+            "listing": listing, "username": listing.name.username, "comments": comments, "message": "Please bid higher than the original price"
+            })
+    else:
+        if bid_amount <= current_bid.bid_amount:
+            return render(request, "auctions/listings.html", {
+            "listing": listing, "username": listing.name.username, "comments": comments, "message": "Please bid higher than the current bid"
+            })
+        else:
+            current_bid.bid_amount = bid_amount
+            current_bid.name = request.user
+            return render(request, "auctions/listings.html", {
+            "listing": listing, "username": listing.name.username, "comments": comments, "bid_success": current_bid, "message1": "Bid Successfully placed"
+            })
     return HttpResponse("You're here")
     pass

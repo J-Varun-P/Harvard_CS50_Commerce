@@ -28,13 +28,20 @@
       </div>
       <div class="bid">
         <h3>Current Bidding at:</h3>
+        {% if message1 %}
+        {{bid_success.name.username}} bidded {{bid_success.bid_amount}}
+        {% else %}
         <span>No one has bidded yet</span>
+        {% endif %}
       </div>
       {% if username != request.user.username %}
       <div class="do_the_bid">
         <form action="{% url 'addmybid' listing.id %}" method="post">
           {% if message %}
           <h4 style="color: red;">{{message}}</h4>
+          {% endif %}
+          {% if message1 %}
+          <h4 style="color: #d4edda">{{ message1 }}</h4>
           {% endif %}
           {% csrf_token %}
           <label for="bid"><h3>Bid Amount</h3></label>
