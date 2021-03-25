@@ -126,8 +126,12 @@ img{
   flex-flow: row wrap;
   align-items: baseline;
   padding: 0 0 10px 0;
-  margin: 20px 0 10px 0;
+  margin: 20px 0 0 0;
   /*border: 2px solid hotpink;*/
+}
+
+.bid > *{
+  margin: 20px 2px;
 }
 
 .bid span{
@@ -148,6 +152,10 @@ img{
   line-height: 1.2;
   /*border: 2px solid hotpink;*/
   margin-bottom: 10px;
+}
+
+.do_the_bid form > *{
+  margin: 20px 2px;
 }
 
 .do_the_bid h3{
