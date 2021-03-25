@@ -205,7 +205,7 @@ def addmybid(request, id):
     #current_bid = Bid.objects.filter(listing=listing).first()
     #print(current_bid)
     bid_amount = float(bid_amount)
-    print(f"float {bid_amount} current bid {bid.bid_amount}")
+    #print(f"float {bid_amount} current bid {bid.bid_amount}")
     bid1 = Bid(bid_amount=bid_amount, name=name, listing=listing)
     if bid is None:
         if bid_amount > listing.price:
@@ -216,7 +216,7 @@ def addmybid(request, id):
             })
         else:
             return render(request, "auctions/listings.html", {
-            "listing": listing, "username": listing.name.username, "comments": comments, "message": "Please bid higher than the original price", "bid_success": bid, "check": "false", "close_bidding": no
+            "listing": listing, "username": listing.name.username, "comments": comments, "message": "Please bid higher than the original price", "bid_success": bid, "check": "false", "close_bidding": "no"
             })
     else:
         if bid_amount <= bid.bid_amount:
