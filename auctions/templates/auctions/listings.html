@@ -52,7 +52,12 @@
       <span>Post your comments</span>
     </div>
     <div class="commentsection">
-
+      {% for comment in comments %}
+        <div class="addthecomment">
+          <h5>{{comment.name.username}}</h5>
+          <p>{{comment.content}}</p>
+        </div>
+      {% endfor %}
     </div>
     <div class="commententry">
       <form action="{% url 'addcomment' listing.id %}" method="post">
