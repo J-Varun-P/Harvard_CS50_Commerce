@@ -84,7 +84,9 @@ def addlisting(request):
             return render(request, "auctions/addlisting.html", {
             "message": "Please provide a real number for the price tag"
             })
-    return render(request, "auctions/addlisting.html")
+        #listing = Listing()
+    else:
+        return render(request, "auctions/addlisting.html")
 
 
 def listings(request, id):
