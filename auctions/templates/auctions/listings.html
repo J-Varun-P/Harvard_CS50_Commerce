@@ -32,10 +32,13 @@
       </div>
       {% if username != request.user.username %}
       <div class="do_the_bid">
-        <form class="">
+        <form action="{% url 'addmybid' listing.id %}" method="post">
+          {% if message %}
+          <h4 style="color: red;">{{message}}</h4>
+          {% endif %}
           {% csrf_token %}
           <label for="bid"><h3>Bid Amount</h3></label>
-          <input type="text" name="bid" value="" id="bid" placeholder="Enter bidding amount here">
+          <input type="text" name="bid" id="bid" placeholder="Enter bidding amount here">
           <input type="submit" name="" value="Bid (click me)" id="bid_button">
         </form>
       </div>

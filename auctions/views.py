@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
-from .models import User, Listings, Watchlist, Comments
+from .models import User, Listings, Watchlist, Comments, Bid
 
 
 def index(request):
@@ -166,3 +166,25 @@ def addcomment(request, id):
         comment = Comments(name=name,listing=listing,content=content)
         comment.save()
     return HttpResponseRedirect(reverse("listings", args=(listing.id,)))
+
+def addmybid(request, id):
+    listing = Listings.objects.get(pk=id)
+    name = User.objects.get(username=request.user.username)
+    bid_amount = request.POST["bid"]
+    bid = Bid(bid_amount=bid_amount, name=name, listing=listing)
+    print(bid)
+    if bid_amount == "":
+        return HttpResponseRedirect(reverse("listings", args=(listing.id,)))
+    try:
+        float(request.POST["bid"])
+    except ValueError:
+        comments = Comments.objects.filter(listing=listing)
+        return render(request, "auctions/listings.html", {
+        "listing": listing, "username": listing.name.username, "comments": comments, "message": "Please provide a real number for the bid amount"
+        })
+    current_bid = Bid.objects.filter(listing=listing).first()
+    print(current_bid)
+    if current_bid is None:
+        return HttpResponse("Sorry")
+    return HttpResponse("You're here")
+    pass
