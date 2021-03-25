@@ -71,9 +71,15 @@
       </div>
     {% endif %}
     {% if username == request.user.username %} <!-- Terrible naming of classes-->
+    {% if close_bidding == "no" %}
     <div class="watchlsit">
       <a href="{% url 'closeauction' listing.id %}">Close Auction</a>
     </div>
+    {% else %}
+    <div class="watchlsit">
+      <a href="{% url 'reopenauction' listing.id %}">Reopen Auction</a>
+    </div>
+    {% endif %}
     {% endif %}
     <div class="commentheader">
       <span>Post your comments</span>

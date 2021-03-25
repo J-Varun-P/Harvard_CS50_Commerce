@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
-from .models import User, Listings, Watchlist, Comments, Bid
+from .models import User, Listings, Watchlist, Comments, Bid, CloseAuction
 
 
 def index(request):
@@ -112,12 +112,17 @@ def listings(request, id):
     username = listing.name.username
     comments = Comments.objects.filter(listing=listing)
     bid = Bid.objects.filter(listing=listing).first()
+    closeauction = CloseAuction.objects.filter(listing=listing).first()
+    if closeauction is None:
+        close_bidding = "no"
+    else:
+        close_bidding = "yes"
     if bid is None:
         check = "false"
     else:
         check = "true"
     return render(request, "auctions/listings.html", {
-    "listing": listing, "username": username, "comments": comments, "check": check, "bid_success": bid, "close_bidding": "no"
+    "listing": listing, "username": username, "comments": comments, "check": check, "bid_success": bid, "close_bidding": close_bidding
     })
 
 def watchlist_id(request, id):
@@ -230,6 +235,14 @@ def closeauction(request, id):
     comments = Comments.objects.filter(listing=listing)
     bid = Bid.objects.get(listing=listing)
 
+    closeauction = CloseAuction(listing=listing)
+    closeauction.save()
     return render(request, "auctions/listings.html", {
     "listing": listing, "username": username, "comments": comments, "bid_success": bid, "close_bidding": "yes"
     })
+
+def reopenauction(request, id):
+    listing = Listings.objects.get(pk=id)
+    reopenauction = CloseAuction.objects.get(listing=listing)
+    reopenauction.delete()
+    return HttpResponseRedirect(reverse("listings", args=(listing.id,)))

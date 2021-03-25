@@ -39,3 +39,9 @@ class Bid(models.Model):
 
     def __str__(self):
         return f"{self.name.username} bidded {self.bid_amount}"
+
+class CloseAuction(models.Model):
+    listing = models.ForeignKey(Listings, on_delete=models.CASCADE, related_name="close_auction")
+
+    def __str__(self):
+        return f"Auction closed by {self.listing.name.username}"
