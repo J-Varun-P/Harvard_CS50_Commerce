@@ -30,6 +30,15 @@
             </div>
           </a>
         {% endif %}
+        {% if listing in wonlist %}
+        <a href="{% url 'listings' listing.id %}">
+          <div class="listing">
+            <h4>{{ listing.title }}</h4>
+            <img src={{ listing.imageurl }} alt="">
+            <h4>${{ listing.price }}</h4>
+          </div>
+        </a>
+        {% endif %}
       {% endif %}
     {% endfor %}
     </div>

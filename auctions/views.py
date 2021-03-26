@@ -11,13 +11,24 @@ def index(request):
     print(request.user)
     notactive = CloseAuction.objects.all()
     notactivelist = []
+    wonlist = []
     for object in notactive:
         notactivelist.append(object.listing)
+        print(object.listing)
     listings = Listings.objects.filter(close="false").all()
     #for l in listings:
     #    print(l, l.name.username, l.id)
+    for l in listings:
+        #print(l)
+        a = Bid.objects.filter(listing=l).first()
+        if a is not None:
+            b = l.bid_listing.all().first()
+            c = b.name.username
+            if c == request.user.username:
+                wonlist.append(l)
+                #print(b, l)
     return render(request, "auctions/index.html", {
-    "listings": listings, "notactive": notactivelist
+    "listings": listings, "notactive": notactivelist, "wonlist": wonlist
     })
 
 

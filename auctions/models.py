@@ -45,3 +45,10 @@ class CloseAuction(models.Model):
 
     def __str__(self):
         return f"Auction closed by {self.listing.name.username}"
+
+class SmallDescription(models.Model):
+    content = models.CharField(max_length=64)
+    listing = models.ForeignKey(Listings, on_delete=models.CASCADE, related_name="small_description")
+
+    def __str__(self):
+        return f"{self.content}"
