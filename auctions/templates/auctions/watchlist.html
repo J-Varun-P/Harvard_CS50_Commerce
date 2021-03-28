@@ -9,7 +9,7 @@
 {% block body %}
     <h2>WatchList</h2>
     <div class="fc">
-      {% for listing in listings %}
+      {% for listing, short_desc in combined_list %}
         <div class="positionme">
             <!--<div class="remove">
               <a href="{% url 'removewatchlist' listing.listing.id %}">Remove</a>
@@ -19,6 +19,7 @@
                 <h4>{{ listing.listing.title }}</h4>
                 <img src={{ listing.listing.imageurl }} alt="">
                 <h4>${{ listing.listing.price }}</h4>
+                <p>{{ short_desc }}</p>
               </div>
             </a>
             <div class="remove">

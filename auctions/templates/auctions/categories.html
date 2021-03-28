@@ -9,13 +9,14 @@
 {% block body %}
     <h2>Categories</h2>
     <div class="fc">
-      {% for listing in listings %}
+      {% for listing, short_desc in combined_list %}
 
         <a href="{% url 'listings' listing.id %}">
           <div class="listing">
             <h4>{{ listing.title }}</h4>
             <img src={{ listing.imageurl }} alt="">
             <h4>${{ listing.price }}</h4>
+            <p>{{ short_desc }}</p>
           </div>
         </a>
 

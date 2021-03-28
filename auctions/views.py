@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
@@ -8,27 +9,28 @@ from .models import User, Listings, Watchlist, Comments, Bid, CloseAuction
 
 
 def index(request):
-    print(request.user)
     notactive = CloseAuction.objects.all()
     notactivelist = []
     wonlist = []
+    short_desc = [] # for short description in active listings
     for object in notactive:
         notactivelist.append(object.listing)
         print(object.listing)
     listings = Listings.objects.filter(close="false").all()
-    #for l in listings:
-    #    print(l, l.name.username, l.id)
     for l in listings:
-        #print(l)
+        short_desc.append(l.description.splitlines()[0])
+        print(l.description.splitlines()[0])
+        # checking if the listing is closed
         a = Bid.objects.filter(listing=l).first()
         if a is not None:
+            # checking if the current user won the listing if the listing is closed
             b = l.bid_listing.all().first()
             c = b.name.username
             if c == request.user.username:
                 wonlist.append(l)
-                #print(b, l)
+    combined_list = zip(listings, short_desc)
     return render(request, "auctions/index.html", {
-    "listings": listings, "notactive": notactivelist, "wonlist": wonlist
+    "combined_list": combined_list, "notactive": notactivelist, "wonlist": wonlist
     })
 
 
@@ -83,12 +85,10 @@ def register(request):
     else:
         return render(request, "auctions/register.html")
 
-
+@login_required
 def addlisting(request):
     if request.method == "POST":
-        #print(request.user.username, request.POST["category"])
         username = request.user.username
-        #print(request.POST["title"], request.POST["urlname"], request.POST["price"], request.POST["description"])
         if request.POST["title"] == "" or request.POST["urlname"] == ""  or request.POST["description"] == "" or request.POST["price"] == "":
             return render(request, "auctions/addlisting.html", {
             "message": "Please fill the form completely to add a listing"
@@ -103,26 +103,11 @@ def addlisting(request):
         listing = Listings(title=request.POST["title"], imageurl=request.POST["urlname"], price=request.POST["price"], description=request.POST["description"], category=request.POST["category"], name=username)
         listing.save()
         return HttpResponseRedirect(reverse("index"))
-        #print(listing, listing.name)
-        #return HttpResponse("Hello")
     else:
         return render(request, "auctions/addlisting.html")
 
-
+@login_required
 def listings(request, id):
-    """
-    print(request.user.username)
-    listing = Listings.objects.get(pk=id)
-    print(listing)
-    list = Listings.objects.get(pk=id)
-    print(list)
-    obj = list.name.all().first()
-    print(obj.email, obj.username)
-    return render(request, "auctions/listings.html", {
-    "listing": listing, "username": obj.username
-    })
-
-    """
     listing = Listings.objects.get(pk=id)
     username = listing.name.username
     comments = Comments.objects.filter(listing=listing)
@@ -140,6 +125,7 @@ def listings(request, id):
     "listing": listing, "username": username, "comments": comments, "check": check, "bid_success": bid, "close_bidding": close_bidding
     })
 
+@login_required
 def watchlist_id(request, id):
     listing = Listings.objects.get(pk=id)
     print(listing)
@@ -155,33 +141,40 @@ def watchlist_id(request, id):
     w_list.save()
     return HttpResponseRedirect(reverse("watchlist"))
 
-
+@login_required
 def watchlist(request):
-    """
-    print(Watchlist.objects.filter(username=request.user).all())
-    return HttpResponse("Hello")
-    print(Watchlist.objects.filter(username=request.user).all())
-    """
     listings = Watchlist.objects.filter(username=request.user).all()
+    short_desc = []
+    for l in listings:
+        short_desc.append(l.listing.description.splitlines()[0])
+    combined_list = zip(listings, short_desc)
     return render(request, "auctions/watchlist.html", {
-    "listings": listings
+    "combined_list": combined_list
     })
 
+@login_required
 def removewatchlist(request, id):
     listing = Listings.objects.get(pk=id)
     Watchlist.objects.filter(listing=listing).delete()
     return HttpResponseRedirect(reverse("watchlist"))
 
+@login_required
 def selectcategory(request):
     return render(request, "auctions/selectcategory.html")
 
+@login_required
 def categories(request):
     category = request.POST["category"]
     listings = Listings.objects.filter(category=category).all()
+    short_desc = []
+    for l in listings:
+        short_desc.append(l.description.splitlines()[0])
+    combined_list = zip(listings, short_desc)
     return render(request, "auctions/categories.html", {
-    "listings": listings
+    "combined_list": combined_list
     })
 
+@login_required
 def addcomment(request, id):
     listing = Listings.objects.get(pk=id)
     name = User.objects.get(username=request.user.username)
@@ -192,6 +185,7 @@ def addcomment(request, id):
         comment.save()
     return HttpResponseRedirect(reverse("listings", args=(listing.id,)))
 
+@login_required
 def addmybid(request, id):
     listing = Listings.objects.get(pk=id)
     name = User.objects.get(username=request.user.username)
@@ -213,10 +207,7 @@ def addmybid(request, id):
         return render(request, "auctions/listings.html", {
         "listing": listing, "username": listing.name.username, "comments": comments, "message": "Please provide a real number for the bid amount", "bid_success": bid, "check": check, "close_bidding": "no"
         })
-    #current_bid = Bid.objects.filter(listing=listing).first()
-    #print(current_bid)
     bid_amount = float(bid_amount)
-    #print(f"float {bid_amount} current bid {bid.bid_amount}")
     bid1 = Bid(bid_amount=bid_amount, name=name, listing=listing)
     if bid is None:
         if bid_amount > listing.price:
@@ -244,6 +235,7 @@ def addmybid(request, id):
             })
 
 
+@login_required
 def closeauction(request, id):
     listing = Listings.objects.get(pk=id)
     username = listing.name.username
@@ -256,6 +248,7 @@ def closeauction(request, id):
     "listing": listing, "username": username, "comments": comments, "bid_success": bid, "close_bidding": "yes"
     })
 
+@login_required
 def reopenauction(request, id):
     listing = Listings.objects.get(pk=id)
     reopenauction = CloseAuction.objects.get(listing=listing)

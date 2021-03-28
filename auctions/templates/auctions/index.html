@@ -10,13 +10,14 @@
 {% if user.is_authenticated %}
     <h2>Active Listings</h2>
     <div class="fc">
-      {% for listing in listings %}
+      {% for listing, short_description in combined_list %}
       {% if listing not in notactive %}
         <a href="{% url 'listings' listing.id %}">
           <div class="listing">
             <h4>{{ listing.title }}</h4>
             <img src={{ listing.imageurl }} alt="">
             <h4>${{ listing.price }}</h4>
+            <p>{{ short_description }}</p>
           </div>
         </a>
       {% endif %}
@@ -27,6 +28,7 @@
               <h4>{{ listing.title }}</h4>
               <img src={{ listing.imageurl }} alt="">
               <h4>${{ listing.price }}</h4>
+              <p> {{ short_description }}</p>
             </div>
           </a>
         {% endif %}
@@ -36,6 +38,7 @@
             <h4>{{ listing.title }}</h4>
             <img src={{ listing.imageurl }} alt="">
             <h4>${{ listing.price }}</h4>
+            <p>{{ short_description }}</p>
           </div>
         </a>
         {% endif %}
